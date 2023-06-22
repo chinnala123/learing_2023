@@ -1,0 +1,41 @@
+#include <stdio.h>
+struct TimePeriod {
+    int hours;
+    int minutes;
+    int seconds;
+};
+struct TimePeriod calculateDifference(struct TimePeriod t1, struct TimePeriod t2) {
+    struct TimePeriod diff;
+    int totalSeconds1 = t1.hours * 3600 + t1.minutes * 60 + t1.seconds;
+    int totalSeconds2 = t2.hours * 3600 + t2.minutes * 60 + t2.seconds;
+    int diffSeconds = totalSeconds2 - totalSeconds1;
+    diff.hours = diffSeconds / 3600;
+    diffSeconds %= 3600;
+    diff.minutes = diffSeconds / 60;
+    diff.seconds = diffSeconds % 60;
+
+    return diff;
+}
+void displayMembers(struct TimePeriod arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("Member %d: %d hours, %d minutes, %d seconds\n", i + 1, arr[i].hours, arr[i].minutes, arr[i].seconds);
+    }
+}
+
+int main() {
+    struct TimePeriod t1, t2, diff;
+    printf("Enter the first time period (hours minutes seconds): ");
+    scanf("%d %d %d", &t1.hours, &t1.minutes, &t1.seconds);
+    printf("Enter the second time period (hours minutes seconds): ");
+    scanf("%d %d %d", &t2.hours, &t2.minutes, &t2.seconds);
+    diff = calculateDifference(t1, t2);
+    printf("The difference is: %d hours, %d minutes, %d seconds\n", diff.hours, diff.minutes, diff.seconds);
+    struct TimePeriod timeArray[3];
+    for (int i = 0; i < 3; i++) {
+        printf("Enter time period %d (hours minutes seconds): ", i + 1);
+        scanf("%d %d %d", &timeArray[i].hours, &timeArray[i].minutes, &timeArray[i].seconds);
+    }
+    displayMembers(timeArray, 3);
+
+    return 0;
+}
